@@ -14,7 +14,7 @@
   tasks:
     - name: Transfer Certificate
       copy:
-        src=/etc/letsencrypt/live/boot.stake.plus/boot.stake.plus.pem
+        src=/etc/letsencrypt/live/boot.domain.com/boot.domain.com.pem
         dest=/etc/pki/certs/boot.domain.com.crt
         owner=root
         group=root
