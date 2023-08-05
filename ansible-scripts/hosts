@@ -1,0 +1,8 @@
+[rpc_balancers]
+haproxy-1 ansible_port=22 ansible_host=192.168.1.10
+haproxy-2 ansible_port=22 ansible_host=192.168.1.11
+
+[bootnodes]
+kusama-bootnode ansible_port=22 ansible_host=192.168.1.20
+polkadot-bootnode ansible_port=22 ansible_host=192.168.1.21
+
