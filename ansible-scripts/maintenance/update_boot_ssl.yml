@@ -1,0 +1,29 @@
+- name: Generate SSL Certificate
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: "Check new expiration date"
+      shell: "openssl x509 -enddate -noout -in /etc/letsencrypt/live/boot.domain.com/cert.pem | cut -f2 -d'='"
+      register: expiration_date_new
+    - shell: cat /etc/letsencrypt/live/boot.domain.com/fullchain.pem /etc/letsencrypt/live/boot.domain.com/privkey.pem > /etc/letsencrypt/live/boot.domain.com/boot.domain.com.pem
+- name: Update Load Balancer SSL
+  remote_user: ansible
+  hosts: bootnodes
+  become: yes
+  tasks:
+    - name: Transfer Certificate
+      copy:
+        src=/etc/letsencrypt/live/boot.stake.plus/boot.stake.plus.pem
+        dest=/etc/pki/certs/boot.domain.com.crt
+        owner=root
+        group=root
+        mode=0644
+        force=yes
+- name: Reload HAProxy to read new cert
+  hosts: bootnodes
+  remote_user: ansible
+  become: yes
+  tasks:
+    - name: Restart haproxy
+      service: name=haproxy state=reloaded
