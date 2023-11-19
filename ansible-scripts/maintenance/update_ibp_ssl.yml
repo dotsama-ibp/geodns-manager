@@ -57,4 +57,4 @@
   become: yes
   tasks:
     - name: Restart haproxy
-      service: name=haproxy state=restarted
+      service: name=haproxy statea=reloaded
