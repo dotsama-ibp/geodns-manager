@@ -56,5 +56,5 @@
   remote_user: ansible
   become: yes
   tasks:
-    - name: Restart haproxy
-      service: name=haproxy state=restarted
+    - name: Reload haproxy
+      service: name=haproxy statea=reloaded
